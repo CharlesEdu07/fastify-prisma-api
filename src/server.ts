@@ -3,7 +3,19 @@ import fastify from "fastify";
 const app = fastify();
 
 app.get("/user", () => {
-    return "Rota de usuário";
+    return "Lista de usuários"
+})
+
+app.post("/user", () => {
+    return "Criar usuário"
+})
+
+app.put("/user", () => {
+    return "Atualizar usuário"
+})
+
+app.delete("/user", () => {
+    return "Deletar usuário"
 })
 
 app.listen({
