@@ -1,6 +1,8 @@
-import fastify from "fastify";
+import "dotenv/config"
 
-const app = fastify();
+import fastify from "fastify"
+
+const app = fastify()
 
 app.get("/user", () => {
     return "Lista de usuários"
@@ -18,9 +20,12 @@ app.delete("/user", () => {
     return "Deletar usuário"
 })
 
+const HOST = process.env.HOST
+const PORT = process.env.PORT
+
 app.listen({
-    host: "0.0.0.0",
-    port: 3333,
+    host: typeof HOST == "string" ? HOST : "0.0.0.0",
+    port: typeof PORT == "string" ? Number(PORT) : 3333
 }).then(() => {
-    console.log("Server is running on http://localhost:3333/");
+    console.log(`Server is running on http://${HOST}:${3333}/`);
 });
