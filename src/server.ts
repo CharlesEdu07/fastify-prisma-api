@@ -4,6 +4,10 @@ import fastify from "fastify"
 
 const app = fastify()
 
+app.get("/healthcheck", async function () {
+    return { status: "ok" }
+})
+
 app.get("/user", () => {
     return "Lista de usuários"
 })
