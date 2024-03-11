@@ -7,14 +7,6 @@ async function userRoutes(server: FastifyInstance) {
     })
 
     server.post("/", registerUserHandler)
-
-    server.put("/user", () => {
-        return "Atualizar usuário"
-    })
-
-    server.delete("/user", () => {
-        return "Deletar usuário"
-    })
 }
 
 export default userRoutes;

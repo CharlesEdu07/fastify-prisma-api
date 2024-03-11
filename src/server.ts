@@ -13,7 +13,7 @@ server.get("/healthcheck", async function () {
 })
 
 async function main() {
-    server.register(userRoutes, { prexis: "api/users" })
+    server.register(userRoutes, { prefix: "api/users" })
 
     server.listen({
         host: typeof HOST == "string" ? HOST : "0.0.0.0",
