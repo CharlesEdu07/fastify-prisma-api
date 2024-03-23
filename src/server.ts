@@ -3,6 +3,8 @@ import "dotenv/config"
 import fastify from "fastify"
 import userRoutes from "./modules/user/user.route"
 
+import { userSchemas } from "./modules/user/user.schema"
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT
 
@@ -13,7 +15,11 @@ server.get("/healthcheck", async function () {
 })
 
 async function main() {
-    server.register(userRoutes, { prefix: "api/users" })
+    for (const schema of userSchemas) {
+        server.addSchema(schema);
+    }
+
+    server.register(userRoutes, { prefix: "api/users" });
 
     server.listen({
         host: typeof HOST == "string" ? HOST : "0.0.0.0",
@@ -23,4 +29,4 @@ async function main() {
     });
 }
 
-main()
+main();
