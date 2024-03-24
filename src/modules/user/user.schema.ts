@@ -7,7 +7,7 @@ const userCore = {
         invalid_type_error: 'Email must be a string',
     }).email(),
     name: z.string(),
-}
+};
 
 const createUserSchema = z.object({
     ...userCore,
@@ -20,7 +20,7 @@ const createUserSchema = z.object({
 const createUserResponseSchema = z.object({
     id: z.string().uuid(),
     ...userCore
-})
+});
 
 const loginSchema = z.object({
     email: z.string({

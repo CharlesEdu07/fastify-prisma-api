@@ -6,6 +6,7 @@ import fastifyJwt from "@fastify/jwt"
 import userRoutes from "./modules/user/user.route";
 
 import { userSchemas } from "./modules/user/user.schema";
+import { productSchemas } from "./modules/product/product.schema";
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
@@ -35,7 +36,7 @@ server.get("/healthcheck", async function () {
 });
 
 async function main() {
-    for (const schema of userSchemas) {
+    for (const schema of [...userSchemas, ...productSchemas]) {
         server.addSchema(schema);
     }
 
