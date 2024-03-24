@@ -1,18 +1,32 @@
 import "dotenv/config"
 
-import fastify from "fastify"
-import userRoutes from "./modules/user/user.route"
+import Fastify, { FastifyReply, FastifyRequest } from "fastify"
+import fastifyJwt from "@fastify/jwt"
 
-import { userSchemas } from "./modules/user/user.schema"
+import userRoutes from "./modules/user/user.route";
 
-const HOST = process.env.HOST
-const PORT = process.env.PORT
+import { userSchemas } from "./modules/user/user.schema";
 
-const server = fastify()
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
+
+export const server = Fastify();
+
+server.register(fastifyJwt, {
+    secret: "supersecret"
+});
+
+server.decorate("authenticate", async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+        await request.jwtVerify();
+    } catch (error) {
+        return reply.code(401).send({ message: "Unauthorized" });
+    }
+})
 
 server.get("/healthcheck", async function () {
     return { status: "ok" }
-})
+});
 
 async function main() {
     for (const schema of userSchemas) {
