@@ -10,6 +10,12 @@ import { userSchemas } from "./modules/user/user.schema";
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
 
+declare module "fastify" {
+    export interface FastifyInstance {
+        authenticate: any;
+    }
+}
+
 export const server = Fastify();
 
 server.register(fastifyJwt, {
