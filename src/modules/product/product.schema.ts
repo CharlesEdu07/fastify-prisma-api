@@ -14,7 +14,7 @@ const productOutput = {
 };
 
 const createProductSchema = z.object({
-    ...productInput
+    ...productInput,
 });
 
 const productResponseSchema = z.object({
@@ -29,4 +29,4 @@ export const { schemas: productSchemas, $ref } = buildJsonSchemas({
     createProductSchema,
     productResponseSchema,
     productsResponseSchema
-});
+}, { $id: 'ProductSchema' });

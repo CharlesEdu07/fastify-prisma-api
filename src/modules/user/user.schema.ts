@@ -45,4 +45,4 @@ export const { schemas: userSchemas, $ref } = buildJsonSchemas({
     createUserResponseSchema,
     loginSchema,
     loginReponseSchema,
-});
+}, { $id: 'UserSchema' });

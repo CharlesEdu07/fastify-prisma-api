@@ -7,6 +7,7 @@ import userRoutes from "./modules/user/user.route";
 
 import { userSchemas } from "./modules/user/user.schema";
 import { productSchemas } from "./modules/product/product.schema";
+import ProductRoutes from "./modules/product/product.route";
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
@@ -14,6 +15,16 @@ const PORT = process.env.PORT;
 declare module "fastify" {
     export interface FastifyInstance {
         authenticate: any;
+    }
+}
+
+declare module "@fastify/jwt" {
+    interface FastifyJWT {
+        user: {
+            id: string,
+            email: string,
+            name: string,
+        };
     }
 }
 
@@ -41,6 +52,7 @@ async function main() {
     }
 
     server.register(userRoutes, { prefix: "api/users" });
+    server.register(ProductRoutes, { prefix: "api/products" });
 
     server.listen({
         host: typeof HOST == "string" ? HOST : "0.0.0.0",
