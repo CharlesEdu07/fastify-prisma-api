@@ -6,7 +6,7 @@ import userRoutes from "./modules/user/user.route";
 
 import { userSchemas } from "./modules/user/user.schema";
 
-const server = Fastify();
+export const server = Fastify();
 
 server.register(fjwt, {
     secret: "supersecret",

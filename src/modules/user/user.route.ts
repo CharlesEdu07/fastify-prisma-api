@@ -16,7 +16,17 @@ async function userRoutes(server: FastifyInstance) {
         registerUserHandler
     );
 
-    server.post("/login", {}, loginHandler)
+    server.post("/login", {
+        schema: {
+            body: $ref("loginSchema"),
+            response: {
+                200: $ref("loginResponseSchema"),
+
+            }
+        }
+    },
+        loginHandler
+    );
 }
 
 export default userRoutes;
