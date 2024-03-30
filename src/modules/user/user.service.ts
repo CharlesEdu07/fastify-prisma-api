@@ -22,7 +22,13 @@ export async function createUser(input: CreateUserInput) {
 }
 
 export async function findUsers() {
-    return prisma.user.findMany();
+    return prisma.user.findMany({
+        select: {
+            id: true,
+            name: true,
+            email: true,
+        }
+    });
 }
 
 export async function findUserByEmail(email: string) {
