@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createUser } from "./user.service";
+import { createUser, findUserByEmail } from "./user.service";
 import { CreateUserInput, LoginInput } from "./user.schema";
+import { verifyPassword } from "../../utils/hash";
 
 export async function registerUserHandler(
     request: FastifyRequest<{
@@ -27,5 +28,23 @@ export async function loginHandler(
     }>,
     reply: FastifyReply
 ) {
-    return reply.send("Login route");
+    const user = await findUserByEmail(request.body.email);
+
+    if (!user) {
+        return reply.status(404).send({
+            message: "Invalid email or password",
+        });
+    }
+
+    const correctPassword = verifyPassword({
+        candidatePassword: request.body.password,
+        salt: user.salt,
+        hash: user.password,
+    });
+
+    if (correctPassword) {
+        const { password, salt, ...rest } = user;
+    }
+
+    return reply.status(200).send(user);
 }
