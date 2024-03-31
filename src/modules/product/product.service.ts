@@ -14,6 +14,8 @@ export function getProducts() {
             title: true,
             price: true,
             content: true,
+            createdAt: true,
+            updatedAt: true,
             owner: {
                 select: {
                     id: true,
