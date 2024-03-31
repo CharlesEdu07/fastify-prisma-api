@@ -3,6 +3,7 @@ import Fastify, { FastifyReply, FastifyRequest } from "fastify";
 import fjwt from "@fastify/jwt";
 
 import userRoutes from "./modules/user/user.route";
+import productRoutes from "./modules/product/product.route";
 
 import { userSchemas } from "./modules/user/user.schema";
 import { productSchemas } from "./modules/product/product.schema";
@@ -49,6 +50,7 @@ async function main() {
     }
 
     server.register(userRoutes, { prefix: "api/users" });
+    server.register(productRoutes, { prefix: "api/products" });
 
     try {
         await server.listen({
