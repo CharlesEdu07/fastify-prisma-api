@@ -6,3 +6,21 @@ export async function createProduct(data: CreateProductInput & { ownerId: number
         data,
     });
 }
+
+export function getProducts() {
+    return prisma.product.findMany({
+        select: {
+            id: true,
+            title: true,
+            price: true,
+            content: true,
+            owner: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                }
+            }
+        }
+    });
+}
